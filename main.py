@@ -52,9 +52,9 @@ saudacao_var.current(0)
 saudacao_var.pack()
 
 tk.Label(app, text="CTRL+SHIFT+1 = Alimentação desconectada").pack(pady=5)
-tk.Label(app, text="CTRL+SHIFT+2 = Sem comunicação").pack()(pady=5)
-tk.Label(app, text="CTRL+SHIFT+3 = Destino").pack()(pady=5)
-tk.Label(app, text="CTRL+SHIFT+4 = Saudação").pack()(pady=5)
+tk.Label(app, text="CTRL+SHIFT+2 = Sem comunicação").pack()
+tk.Label(app, text="CTRL+SHIFT+3 = Destino").pack()
+tk.Label(app, text="CTRL+SHIFT+4 = Saudação").pack()
 
 keyboard.add_hotkey('ctrl+shift+1', lambda: gerar_mensagem(1))
 keyboard.add_hotkey('ctrl+shift+2', lambda: gerar_mensagem(2))
