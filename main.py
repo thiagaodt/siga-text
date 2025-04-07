@@ -3,6 +3,7 @@ from tkinter import ttk
 import pyperclip
 import keyboard
 import ctypes
+from ctypes import windll
 
 ultimo_copiado = []
 
@@ -24,23 +25,20 @@ def gerar_mensagem(tipo):
     placa, local = ultimo_copiado
 
     if tipo == 1:
-        mensagem = f"""{saudacao}! {placa} Alimentação desconectada em {local}
-        \nTudo certo por aí?"""
+        mensagem = f"""{saudacao}! {placa} Alimentação desconectada em {local}\nTudo certo por aí?"""
 
     elif tipo == 2:
-        mensagem = f"""{saudacao}! {placa} Perda de sinal em {local}
-        \nTudo certo por aí?"""
+        mensagem = f"""{saudacao}! {placa} Perda de sinal em {local}\nTudo certo por aí?"""
 
     elif tipo == 3:
-        mensagem = f"""{saudacao}! {placa} Tudo certo por aí?
-        \nQual o destino?"""
+        mensagem = f"""{saudacao}! {placa} Tudo certo por aí?\nQual o destino?"""
     
     elif tipo == 4:
-        mensagem = f"""{saudacao}! SIGA TRUCKS agradece seu contato!!!
-        \nQual o seu nome e como podemos ajudar?"""
+        mensagem = f"""{saudacao}! SIGA TRUCKS agradece seu contato!!!\nQual o seu nome e como podemos ajudar?"""
 
     pyperclip.copy(mensagem)
     keyboard.write(mensagem)
+    pyperclip.copy('')
 
 app = tk.Tk()
 app.title("Gerador de Mensagens")
@@ -59,6 +57,7 @@ tk.Label(app, text="CTRL+SHIFT+4 = Saudação").pack()
 keyboard.add_hotkey('ctrl+shift+1', lambda: gerar_mensagem(1))
 keyboard.add_hotkey('ctrl+shift+2', lambda: gerar_mensagem(2))
 keyboard.add_hotkey('ctrl+shift+3', lambda: gerar_mensagem(3))
+keyboard.add_hotkey('ctrl+shift+4', lambda: gerar_mensagem(4))
 
 monitorar_clipboard()
 
