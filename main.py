@@ -1,8 +1,8 @@
 import tkinter as tk
-from tkinter import ttk
+import ttkbootstrap as ttk
+from ttkbootstrap.constants import *
 import pyperclip
 import keyboard
-import ctypes
 from ctypes import windll
 
 ultimo_copiado = []
@@ -40,16 +40,18 @@ def gerar_mensagem(tipo):
     keyboard.write(mensagem)
     pyperclip.copy('')
 
-app = tk.Tk()
-app.title("Gerador de Mensagens")
-app.geometry("300x150")
+app = ttk.Window(themename="darkly")
+app.title("SigaText - Macro de Mensagens")
+app.geometry("600x300")
 
 tk.Label(app, text="Saudação:").pack(pady=5)
-saudacao_var = ttk.Combobox(app, values=["Bom dia", "Boa tarde", "Boa noite"])
+saudacao_var = ttk.Combobox(app, values=["Bom dia", "Boa tarde", "Boa noite"], bootstyle="primary")
 saudacao_var.current(0)
 saudacao_var.pack()
 
-tk.Label(app, text="CTRL+SHIFT+1 = Alimentação desconectada").pack(pady=5)
+tk.Label(app, text="CTRL+SHIFT+1 = Alimentação desconectada").pack()
+tk.Label(app, text="Exemplo: [saudacao]! [placa] Alimentação desconectada em [local]" \
+"Tudo certo por aí?").pack()
 tk.Label(app, text="CTRL+SHIFT+2 = Sem comunicação").pack()
 tk.Label(app, text="CTRL+SHIFT+3 = Destino").pack()
 tk.Label(app, text="CTRL+SHIFT+4 = Saudação").pack()
