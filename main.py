@@ -20,7 +20,7 @@ def saudacao_mensagem(tecla):
     saudacao = saudacao_var.get()
 
     if tecla == 7:  
-        mensagem = f"{saudacao}! Siga Trucks Rastreamento e Monitoramento agradece seu contato!!!\nQual seu nome e como podemos ajudar?"
+        mensagem = f"{saudacao}! Siga Trucks Rastreamento e Monitoramento agradece seu contato!!!"
         keyboard.write(mensagem)
     
 
@@ -57,18 +57,19 @@ saudacao_var.current(0)
 saudacao_var.pack(pady=5)
 
 tk.Label(app, text="Mensagens:", font=("Aptos", 16,"bold")).pack(pady=5)
-tk.Label(app, text="CTRL+SHIFT+1 = Alimentação desconectada").pack()
+tk.Label(app, text="Obs: Usar teclado numérico", font=("Aptos", 12,"bold")).pack(pady=5)
+tk.Label(app, text="SHIFT+1 = Alimentação desconectada").pack()
 tk.Label(app, text="Exemplo: [saudacao]! [placa] Alimentação desconectada em [local]" \
 "Tudo certo por aí?").pack()
-tk.Label(app, text="CTRL+SHIFT+2 = Sem comunicação").pack()
-tk.Label(app, text="CTRL+SHIFT+3 = Destino").pack()
-tk.Label(app, text="CTRL+SHIFT+7 = Saudação").pack()
+tk.Label(app, text="SHIFT+2 = Sem comunicação").pack()
+tk.Label(app, text="SHIFT+3 = Destino").pack()
+tk.Label(app, text="SHIFT+7 = Saudação").pack()
 
 
-keyboard.add_hotkey('ctrl+shift+1', lambda: evento_mensagem(1))
-keyboard.add_hotkey('ctrl+shift+2', lambda: evento_mensagem(2))
-keyboard.add_hotkey('ctrl+shift+3', lambda: evento_mensagem(3))
-keyboard.add_hotkey('ctrl+shift+7', lambda: saudacao_mensagem(7))
+keyboard.add_hotkey('shift+1', lambda: evento_mensagem(1))
+keyboard.add_hotkey('shift+2', lambda: evento_mensagem(2))
+keyboard.add_hotkey('shift+3', lambda: evento_mensagem(3))
+keyboard.add_hotkey('shift+7', lambda: saudacao_mensagem(7))
 
 monitorar_clipboard()
 
