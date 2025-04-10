@@ -7,7 +7,7 @@ e facilitando a digitação.
 <hr>
 
 É uma solução individual para as mensagens de rotina da empresa, onde precisam muitas vezes enviar a mesma mensagem para contatos diferentes, 
-mas, con atributos diferentes
+mas com atributos diferentes, no caso a placa do veículo e o local da ocorrência
 
 <hr>
 
