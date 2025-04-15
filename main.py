@@ -3,18 +3,36 @@ import ttkbootstrap as ttk
 from ttkbootstrap.constants import *
 import pyperclip
 import keyboard
-from ctypes import windll
+import re
 
-ultimo_copiado = []
+placa = ""
+local = ""
+texto = ""
 
-def monitorar_clipboard():
-    global ultimo_copiado
+# função pra validar se o texto copiado é uma placa
+def validaPlaca(texto): 
+    padrao_antigo = r'^[A-Za-z]{3}-\d{4}$'
+    padrao_mercosul = r'^[A-Za-z]{3}\d[A-Za-z]\d{2}$'
+    return bool(re.fullmatch(padrao_antigo, texto)) or bool(re.fullmatch(padrao_mercosul, texto))
+
+def validaLocal(texto):
+    padrao_local = r'^[a-zA-Z0-9\sáéíóúÁÉÍÓÚãõâêîôûÃÕÂÊÎÔÛçÇ,.-]+$'
+    return bool(re.fullmatch(padrao_local, texto))
+
+# função que monitora a pasta de transferência
+def placa_clipboard():
+    global placa, texto
     texto = pyperclip.paste()
-    if texto and (not ultimo_copiado or texto != ultimo_copiado[-1]):
-        ultimo_copiado.append(texto)
-        if len(ultimo_copiado) > 2:
-            ultimo_copiado.pop(0)
-    app.after(500, monitorar_clipboard)
+    if texto and validaPlaca(texto):
+        placa = texto
+    app.after(500, placa_clipboard)
+
+def local_clipboard():
+    global local, texto
+    texto = pyperclip.paste()
+    if texto and validaLocal(texto):
+        local = texto
+    app.after(500, local_clipboard)
 
 def saudacao_mensagem(tecla):
     saudacao = saudacao_var.get()
@@ -25,13 +43,8 @@ def saudacao_mensagem(tecla):
     
 
 def evento_mensagem(tipo):
+    global placa, local
     saudacao = saudacao_var.get()
-
-    if len(ultimo_copiado) < 2:
-        return
-
-    placa, local = ultimo_copiado
-
     if tipo == 1:
         mensagem = f"""{saudacao}! {placa} Alimentação desconectada em {local}\nTudo certo por aí?"""
 
@@ -41,9 +54,9 @@ def evento_mensagem(tipo):
     elif tipo == 3:
         mensagem = f"""{saudacao}! {placa} Tudo certo por aí?\nQual o destino?"""
     
-    pyperclip.copy(mensagem)
     keyboard.write(mensagem)
-    pyperclip.copy('')
+    keyboard.release('shift') 
+
 
 app = ttk.Window(themename="darkly")
 app.title("SigaText - Macro de Mensagens")
@@ -65,12 +78,12 @@ tk.Label(app, text="SHIFT+2 = Sem comunicação").pack()
 tk.Label(app, text="SHIFT+3 = Destino").pack()
 tk.Label(app, text="SHIFT+7 = Saudação").pack()
 
-
 keyboard.add_hotkey('shift+1', lambda: evento_mensagem(1))
 keyboard.add_hotkey('shift+2', lambda: evento_mensagem(2))
 keyboard.add_hotkey('shift+3', lambda: evento_mensagem(3))
 keyboard.add_hotkey('shift+7', lambda: saudacao_mensagem(7))
 
-monitorar_clipboard()
+placa_clipboard()
+local_clipboard()
 
 app.mainloop()
