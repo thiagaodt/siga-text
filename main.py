@@ -8,6 +8,7 @@ import re
 placa = ""
 local = ""
 texto = ""
+corpo = ["", ""]
 
 # função pra validar se o texto copiado é uma placa
 def validaPlaca(texto): 
@@ -20,19 +21,24 @@ def validaLocal(texto):
     return bool(re.fullmatch(padrao_local, texto))
 
 # função que monitora a pasta de transferência
-def placa_clipboard():
-    global placa, texto
+def scan_clipboard():
+    global placa, local, texto
     texto = pyperclip.paste()
-    if texto and validaPlaca(texto):
-        placa = texto
-    app.after(500, placa_clipboard)
+    if not texto:
+        return
 
-def local_clipboard():
-    global local, texto
-    texto = pyperclip.paste()
-    if texto and validaLocal(texto):
+    if validaPlaca(texto):
+        placa = texto
+        corpo[0] = placa
+       # placa = texto
+        
+    elif validaLocal(texto):
         local = texto
-    app.after(500, local_clipboard)
+        corpo[1] = local
+       # local = texto
+    print(corpo)
+    app.after(500, scan_clipboard)
+
 
 def saudacao_mensagem(tecla):
     saudacao = saudacao_var.get()
@@ -47,16 +53,22 @@ def evento_mensagem(tipo):
     saudacao = saudacao_var.get()
     if tipo == 1:
         mensagem = f"""{saudacao}! {placa} Alimentação desconectada em {local}\nTudo certo por aí?"""
+       
+        keyboard.write(mensagem)
+        keyboard.release('shift')
 
     elif tipo == 2:
         mensagem = f"""{saudacao}! {placa} Perda de sinal em {local}\nTudo certo por aí?"""
+        
+        keyboard.write(mensagem)
+        keyboard.release('shift')
 
     elif tipo == 3:
         mensagem = f"""{saudacao}! {placa} Tudo certo por aí?\nQual o destino?"""
+        
+        keyboard.write(mensagem)
+        keyboard.release('shift')
     
-    keyboard.write(mensagem)
-    keyboard.release('shift') 
-
 
 app = ttk.Window(themename="darkly")
 app.title("SigaText - Macro de Mensagens")
@@ -83,7 +95,6 @@ keyboard.add_hotkey('shift+2', lambda: evento_mensagem(2))
 keyboard.add_hotkey('shift+3', lambda: evento_mensagem(3))
 keyboard.add_hotkey('shift+7', lambda: saudacao_mensagem(7))
 
-placa_clipboard()
-local_clipboard()
+scan_clipboard()
 
 app.mainloop()
