@@ -20,7 +20,7 @@ def saudacao_mensagem(tecla):
     saudacao = saudacao_var.get()
 
     if tecla == 7:  
-        mensagem = f"{saudacao}! Siga Trucks Rastreamento e Monitoramento agradece seu contato!!!"
+        mensagem = f"{saudacao}! Como podemos ajudar?"
         keyboard.write(mensagem)
     
 
@@ -39,7 +39,7 @@ def evento_mensagem(tipo):
         mensagem = f"""{saudacao}! {placa} Perda de sinal em {local}\nTudo certo por aí?"""
 
     elif tipo == 3:
-        mensagem = f"""{saudacao}! {placa} Tudo certo por aí?\nQual o destino?"""
+        mensagem = f"""{saudacao}! {placa} Tudo certo por aí?"""
     
     pyperclip.copy(mensagem)
     keyboard.write(mensagem)
@@ -47,6 +47,7 @@ def evento_mensagem(tipo):
 
 app = ttk.Window(themename="darkly")
 app.title("SigaText - Macro de Mensagens")
+app.iconbitmap("icone.ico")
 app.geometry("600x300")
 app.wm_minsize(600,300)
 app.wm_maxsize(600,300)
@@ -57,10 +58,8 @@ saudacao_var.current(0)
 saudacao_var.pack(pady=5)
 
 tk.Label(app, text="Mensagens:", font=("Aptos", 16,"bold")).pack(pady=5)
-tk.Label(app, text="Obs: Usar teclado numérico", font=("Aptos", 12,"bold")).pack(pady=5)
+tk.Label(app, text="Obs: Usar teclado numérico e copiar primeiro a placa, depois o local", font=("Aptos", 10,"bold")).pack(pady=5)
 tk.Label(app, text="SHIFT+1 = Alimentação desconectada").pack()
-tk.Label(app, text="Exemplo: [saudacao]! [placa] Alimentação desconectada em [local]" \
-"Tudo certo por aí?").pack()
 tk.Label(app, text="SHIFT+2 = Sem comunicação").pack()
 tk.Label(app, text="SHIFT+3 = Destino").pack()
 tk.Label(app, text="SHIFT+7 = Saudação").pack()
