@@ -1,2 +1,0 @@
-pip install pyinstaller
-python -m PyInstaller --noconsole --onefile main.py

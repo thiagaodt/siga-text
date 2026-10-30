@@ -1,0 +1,15 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# PyInstaller / Inno Setup
+build/
+dist/
+Instaladores/
+*.exe
+
+# Sistema
+.DS_Store
+Thumbs.db

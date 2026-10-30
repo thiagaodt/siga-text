@@ -1,0 +1,6 @@
+pyperclip
+keyboard
+ttkbootstrap
+
+# Apenas para gerar o executável
+pyinstaller
